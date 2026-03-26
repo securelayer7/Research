@@ -1,16 +1,58 @@
-# CVE-Analysis
+<p align="center">
+  <img src="assets/banner.png" alt="SecureLayer7 Research Lab" width="800"/>
+</p>
 
-| *CVE-Number* | *Summary* | *Analysis link* | 
-|-----------------|-----------------|-----------------|
-| CVE-2023-38831  | WinRAR Remote Code Execution through DarkMe malware, patched in version 6.23, exploited by the Evilnum APT group targeting European trading and stock forums. | [Analysis of CVE-2023-38831 Zero-Day vulnerability in WinRAR](https://blog.securelayer7.net/analysis-of-cve-2023-38831-zero-day-vulnerability-in-winrar ) |
-| CVE-2023-22518  | Authentication Bypass in Confluence This zero-day vulnerability affects Confluence Data Center, which allows attackers to bypass authentication.  |[Analysis of CVE-2023-22518 Authentication Bypass in Confluence](https://blog.securelayer7.net/confluence-authentication-bypass/) 
-| CVE-2023-26360  | Unauthenticated RCE in Adobe Coldfusion, This vulnerability affects both the 2018 and 2021 versions and has been actively exploited in the wild, compromising the application server used for rapid web application development.                |[Unauthenticated RCE in Adobe Coldfusion – CVE-2023-26360](https://blog.securelayer7.net/unauthorized-rce-in-adobe-coldfusion/)
-| CVE-2020-9496 - CVE-2023-49070 - CVE-2023-51467  | Multiple vulnerabilities in Apache OFBiz lead to authentication bypass vulnerability in and Remote code execution (RCE) enabling unauthorized access to the system, threatening the security of business management operations. |[Analysis Of Multiple Vulnerabilities In Apache OFBiz](https://blog.securelayer7.net/ofbiz-authentication-bypass-cve-2023-51467/)  |
-| CVE-2024–23897  |Arbitrary File Read in Jenkins, with a high CVSS score of 9.8. It allows attackers to read arbitrary files, posing a severe risk to the widely used automation server. |[CVE-2024–23897 – Arbitrary file read in Jenkins](https://blog.securelayer7.net/arbitrary-file-read-in-jenkins/)
-| CVE-2023-39143  |Remote Code Execution in PaperCut, It affects Windows installations before version 22.1.3 and enables remote code execution, threatening print management systems.|[Analysis of CVE-2023-39143 – PaperCut RCE ](https://blog.securelayer7.net/analysis-of-papercut-rce/)
-| CVE-2024-27348  |Remote Code Execution in Apache HugeGraph Server versions before 1.3.0. It allows attackers to bypass sandbox restrictions and execute arbitrary code, compromising the graph database system.|[Analysis of CVE-2024-27348 Apache HugeGraph](https://blog.securelayer7.net/remote-code-execution-in-apache-hugegraph/)
-|CVE-2024-25065 | Path traversal vulnerability in Apache OFBiz before version 18.12.12. allows authentication bypass through the contextPath variable within the `hasBasePermission()` method.| [Analysis of CVE-2024-25065 Apache OFBiz Security bypass](https://blog.securelayer7.net/security-bypass-in-apache-ofbiz/)
-|CVE-2024-38856 | Arbitrary file read vulnerability in ColdFusion versions 2023.6 and 2021.12, exploitable in the wild, CVSS: 8.2. Allows attackers to access sensitive files by bypassing access control checks.	|[CVE-2024-38856 - Apache Ofbiz RCE](https://blog.securelayer7.net/cve-2024-38856-apache-ofbiz-rce/)
-|CVE-2024-22263 | Arbitrary file writing vulnerability in Spring Cloud Data Flow's Skipper server component due to improper upload path sanitization. Attackers can overwrite files, leading to potential RCE.	 | [CVE-2024-22263: Spring Cloud Dataflow Arbitrary File Writing](https://blog.securelayer7.net/spring-cloud-data-flow-exploit/)
-|CVE-2024-39877 | Arbitrary code execution in Apache Airflow due to improper sanitization of the doc_md parameter, allowing malicious Jinja2 template injection in the scheduler context.	 | [CVE-2024-39877: Apache Airflow Arbitrary Code Execution](https://blog.securelayer7.net/arbitrary-code-execution-in-apache-airflow/)
-|CVE-2024-31204 and CVE-2024-30270 | Path traversal vulnerability in Mailcow. Insufficient input validation in rspamd_maps allows file overwriting, risking system compromise. | [Major Security Flaws in Mailcow: Inside the XSS and Path Traversal Exploits](https://blog.securelayer7.net/xss-and-path-traversal-exploits-in-mailcow/)
+<p align="center">
+  <b>Vulnerability Research & CVE Analysis</b><br>
+  <sub>SecureLayer7 Security Research Team</sub>
+</p>
+
+<p align="center">
+  <a href="#published-research"><img src="https://img.shields.io/badge/CVEs_Analyzed-14-red?style=for-the-badge"/></a>
+  <a href="#published-research"><img src="https://img.shields.io/badge/Critical-9-darkred?style=for-the-badge"/></a>
+  <a href="#published-research"><img src="https://img.shields.io/badge/High-5-orange?style=for-the-badge"/></a>
+  <a href="https://blog.securelayer7.net"><img src="https://img.shields.io/badge/Blog-securelayer7.net-blue?style=for-the-badge"/></a>
+</p>
+
+---
+
+## About
+
+> SecureLayer7's research team focuses on identifying, analyzing, and responsibly disclosing vulnerabilities across widely-used software. This repository serves as a centralized archive of our published CVE research, proof-of-concept exploits, and lab environments.
+
+---
+
+## Published Research
+
+| # | CVE ID | Product | Type | Severity | Analysis |
+|:-:|--------|---------|------|:--------:|----------|
+| 1 | CVE-2023-38831 | WinRAR | RCE | ![Critical](https://img.shields.io/badge/-Critical_9.8-red) | [Zero-Day RCE via DarkMe](https://blog.securelayer7.net/analysis-of-cve-2023-38831-zero-day-vulnerability-in-winrar) |
+| 2 | CVE-2023-22518 | Atlassian Confluence | Auth Bypass | ![Critical](https://img.shields.io/badge/-Critical_9.1-red) | [Authentication Bypass](https://blog.securelayer7.net/confluence-authentication-bypass/) |
+| 3 | CVE-2023-26360 | Adobe ColdFusion | RCE | ![Critical](https://img.shields.io/badge/-Critical_9.8-red) | [Unauthenticated RCE](https://blog.securelayer7.net/unauthorized-rce-in-adobe-coldfusion/) |
+| 4 | CVE-2020-9496 / CVE-2023-49070 / CVE-2023-51467 | Apache OFBiz | RCE + Auth Bypass | ![Critical](https://img.shields.io/badge/-Critical_9.8-red) | [Multiple Vulnerabilities](https://blog.securelayer7.net/ofbiz-authentication-bypass-cve-2023-51467/) |
+| 5 | CVE-2024-23897 | Jenkins | Arbitrary File Read | ![Critical](https://img.shields.io/badge/-Critical_9.8-red) | [Arbitrary File Read](https://blog.securelayer7.net/arbitrary-file-read-in-jenkins/) |
+| 6 | CVE-2023-39143 | PaperCut | RCE | ![High](https://img.shields.io/badge/-High_8.4-orange) | [Remote Code Execution](https://blog.securelayer7.net/analysis-of-papercut-rce/) |
+| 7 | CVE-2024-27348 | Apache HugeGraph | RCE | ![Critical](https://img.shields.io/badge/-Critical_9.8-red) | [Sandbox Bypass RCE](https://blog.securelayer7.net/remote-code-execution-in-apache-hugegraph/) |
+| 8 | CVE-2024-25065 | Apache OFBiz | Path Traversal | ![High](https://img.shields.io/badge/-High_7.5-orange) | [Auth Bypass via Path Traversal](https://blog.securelayer7.net/security-bypass-in-apache-ofbiz/) |
+| 9 | CVE-2024-38856 | Apache OFBiz | RCE | ![High](https://img.shields.io/badge/-High_8.2-orange) | [File Read to RCE](https://blog.securelayer7.net/cve-2024-38856-apache-ofbiz-rce/) |
+| 10 | CVE-2024-22263 | Spring Cloud Data Flow | Arbitrary File Write | ![High](https://img.shields.io/badge/-High_8.8-orange) | [Arbitrary File Writing](https://blog.securelayer7.net/spring-cloud-data-flow-exploit/) |
+| 11 | CVE-2024-39877 | Apache Airflow | Code Execution | ![High](https://img.shields.io/badge/-High_8.8-orange) | [Jinja2 Template Injection](https://blog.securelayer7.net/arbitrary-code-execution-in-apache-airflow/) |
+| 12 | CVE-2024-31204 / CVE-2024-30270 | Mailcow | XSS + Path Traversal | ![High](https://img.shields.io/badge/-High_8.0-orange) | [XSS & Path Traversal](https://blog.securelayer7.net/xss-and-path-traversal-exploits-in-mailcow/) |
+| 13 | CVE-2024-54676 | Apache OpenMeetings | RCE | ![Critical](https://img.shields.io/badge/-Critical_9.8-red) | [Deserialization RCE](CVE-2024-54676/) |
+
+---
+
+## Contact
+
+| | |
+|:--|:--|
+| **Website** | [securelayer7.net](https://securelayer7.net) |
+| **Blog** | [blog.securelayer7.net](https://blog.securelayer7.net) |
+| **Twitter** | [@securelayer7](https://twitter.com/securelayer7) |
+| **Disclosure** | Coordinated 90-day responsible disclosure policy |
+
+---
+
+<p align="center">
+  <sub>All research is conducted responsibly. Vulnerabilities are reported to vendors before public disclosure.</sub>
+</p>
