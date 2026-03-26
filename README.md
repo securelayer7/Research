@@ -1,11 +1,10 @@
 <p align="center">
-  <img src="assets/banner.png" alt="SecureLayer7 Research Lab" width="800"/>
+  <a href="https://securelayer7.net">
+    <img src="https://avatars.githubusercontent.com/u/14994455?v=4" alt="SecureLayer7" width="150"/>
+  </a>
 </p>
 
-<p align="center">
-  <b>Vulnerability Research & CVE Analysis</b><br>
-  <sub>SecureLayer7 Security Research Team</sub>
-</p>
+<h1 align="center">SecureLayer7 Research</h1>
 
 <p align="center">
   <a href="#published-research"><img src="https://img.shields.io/badge/CVEs_Analyzed-14-red?style=for-the-badge"/></a>
