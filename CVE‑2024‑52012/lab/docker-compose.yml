@@ -1,0 +1,26 @@
+# CVE-2024-52012 — Apache Solr Zip Slip Lab
+#
+# Architecture:
+#   [Exploit] --> :8983 (vuln proxy) --> :8984 (real Solr)
+#
+# The proxy intercepts ConfigSet uploads and extracts ZIPs WITHOUT
+# path sanitization, replicating the vulnerable FileSystemConfigSetService.
+# All other requests pass through to the real Solr instance.
+#
+# Usage:
+#   docker-compose up -d --build
+#   python ../exploit/ApacheSolarExploit.py --url http://localhost:8983 \
+#       --configset evilcfg --output "../../evil.txt" --content "pwned"
+
+services:
+  solr:
+    build: .
+    container_name: cve-2024-52012-solr
+    ports:
+      - "8983:8983"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8983/solr/admin/info/system || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
