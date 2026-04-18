@@ -1,0 +1,140 @@
+name: cve-2025-57738
+
+# CVE-2025-57738 Lab — Apache Syncope Groovy Code Injection RCE
+#
+# Usage:
+#   cd lab/
+#   docker compose up --build
+#
+# Vulnerable: http://localhost:8080/syncope/rest/ (admin:password)
+# Patched:    http://localhost:9080/syncope/rest/ (admin:password)
+#
+# Exploit:
+#   python ../exploit/exploit.py -t http://localhost:8080 --check
+#   python ../exploit/exploit.py -t http://localhost:8080 --cmd "id"
+#   python ../exploit/exploit.py -t http://localhost:9080 --check   # should be patched
+
+services:
+  # Zookeeper — Syncope 3.x Keymaster for service discovery
+  keymaster:
+    image: zookeeper:3.8.0
+    container_name: syncope-keymaster
+    restart: unless-stopped
+    networks:
+      - lab
+
+  # PostgreSQL for vulnerable instance
+  db:
+    image: postgres:15-alpine
+    container_name: syncope-db
+    environment:
+      POSTGRES_DB: syncope
+      POSTGRES_USER: syncope
+      POSTGRES_PASSWORD: syncope
+    volumes:
+      - syncope-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U syncope"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lab
+
+  # PostgreSQL for patched instance (separate DB)
+  db-patched:
+    image: postgres:15-alpine
+    container_name: syncope-db-patched
+    environment:
+      POSTGRES_DB: syncope
+      POSTGRES_USER: syncope
+      POSTGRES_PASSWORD: syncope
+    volumes:
+      - syncope-db-patched:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U syncope"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - lab
+
+  # Vulnerable Syncope Core (3.0.2 — no Groovy sandbox)
+  vulnerable:
+    build:
+      context: .
+      dockerfile: Dockerfile.vulnerable
+    container_name: syncope-vuln-cve-2025-57738
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker,postgresql
+      DB_URL: jdbc:postgresql://db:5432/syncope?stringtype=unspecified
+      DB_USER: syncope
+      DB_PASSWORD: syncope
+      DB_POOL_MAX: 20
+      DB_POOL_MIN: 5
+      OPENJPA_REMOTE_COMMIT: sjvm
+      KEYMASTER_ADDRESS: keymaster:2181
+      KEYMASTER_USERNAME: ""
+      KEYMASTER_PASSWORD: ""
+      SERVICE_DISCOVERY_ADDRESS: http://vulnerable:8080/syncope/rest/
+      ANONYMOUS_USER: anonymous
+      ANONYMOUS_KEY: anonymousKey
+    depends_on:
+      db:
+        condition: service_healthy
+      keymaster:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8080/syncope/rest/users/self"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+    networks:
+      - lab
+
+  # Patched Syncope Core (3.0.14 — Groovy sandbox enabled)
+  patched:
+    build:
+      context: .
+      dockerfile: Dockerfile.patched
+    container_name: syncope-patched-cve-2025-57738
+    ports:
+      - "9080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker,postgresql
+      DB_URL: jdbc:postgresql://db-patched:5432/syncope?stringtype=unspecified
+      DB_USER: syncope
+      DB_PASSWORD: syncope
+      DB_POOL_MAX: 20
+      DB_POOL_MIN: 5
+      OPENJPA_REMOTE_COMMIT: sjvm
+      KEYMASTER_ADDRESS: keymaster:2181
+      KEYMASTER_USERNAME: ""
+      KEYMASTER_PASSWORD: ""
+      SERVICE_DISCOVERY_ADDRESS: http://patched:8080/syncope/rest/
+      ANONYMOUS_USER: anonymous
+      ANONYMOUS_KEY: anonymousKey
+    depends_on:
+      db-patched:
+        condition: service_healthy
+      keymaster:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8080/syncope/rest/users/self"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+    networks:
+      - lab
+
+volumes:
+  syncope-db:
+  syncope-db-patched:
+
+networks:
+  lab:
+    driver: bridge
