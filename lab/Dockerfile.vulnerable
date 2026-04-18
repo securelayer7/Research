@@ -1,8 +1,0 @@
-# CVE-2025-57738 - Vulnerable Apache Syncope (< 3.0.14)
-# Groovy implementations execute without sandbox
-# Uses official Docker image with PostgreSQL backend
-FROM apache/syncope:3.0.2
-LABEL cve="CVE-2025-57738" version="3.0.2" status="vulnerable"
-
-RUN apt-get update 2>/dev/null && apt-get install -y curl 2>/dev/null; \
-    exit 0
